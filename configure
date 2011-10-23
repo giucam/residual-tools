@@ -188,10 +188,10 @@ get_system_exe_extension() {
 		;;
 	gp2xwiz-linux)
 		_exeext=".wiz"
-		;;	
+		;;
 	gp2x-linux)
 		_exeext=".gp2x"
-		;;	
+		;;
 	dreamcast | wii | gamecube | nds | psp | ps2)
 		_exeext=".elf"
 		;;
@@ -414,7 +414,7 @@ fi
 #
 # Determine extension used for executables
 #
-get_system_exe_extension $_host_os 
+get_system_exe_extension $_host_os
 HOSTEXEEXT=$_exeext
 
 #
@@ -560,7 +560,7 @@ else
 					;;
 			esac
 			;;
-		*) 
+		*)
 			cxx_version="$cxx_version, bad"
 			cxx_verc_fail=yes
 			;;
@@ -1037,7 +1037,7 @@ test -z "$_libdir" && _libdir="$_prefix/lib"
 if test "$have_gcc" = yes ; then
 	if test "$_cxx_major" -ge "3" ; then
 		case $_host_os in
-		# newlib-based system include files suppress non-C89 function 
+		# newlib-based system include files suppress non-C89 function
 		# declarations under __STRICT_ANSI__
 		mingw* | dreamcast | wii | gamecube | psp | wince | amigaos*)
 			CXXFLAGS="$CXXFLAGS -W -Wno-unused-parameter"
@@ -1157,3 +1157,6 @@ include \$(srcdir)/Makefile
 EOF
 
 fi
+
+# Generate the targets for the modules
+. $_srcdir/makegen

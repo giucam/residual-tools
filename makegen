@@ -1,0 +1,44 @@
+#!/bin/sh
+
+srcdir=`dirname $0`
+builddir=`pwd`
+
+rm -f $builddir/Makefile.modules
+touch $builddir/Makefile.modules
+
+MODULE="."
+
+add_subdirectory() {
+	MODULE="$MODULE/$1"
+	. $srcdir/$MODULE/module.mg
+	MODULE="${MODULE%/$1}"
+}
+
+add_executable() {
+	echo -n "$1_SOURCES := " >> $builddir/Makefile.modules
+	for f in $2; do
+		echo -n "$MODULE/$f " >> $builddir/Makefile.modules
+	done
+	echo >> $builddir/Makefile.modules
+
+	echo -e \
+"build: $1
+$1_DIRS := \$(sort \$(dir \$($1_SOURCES)))
+$1_dirs:
+	\$(QUIET)\$(MKDIR) \$($1_DIRS)
+$1: $1_dirs \$($1_SOURCES)
+	\$(QUIET)\$(MKDIR) \$(DEPDIR)
+	\$(QUIET_CXX)\$(CXX) \$(LDFLAGS) $3 \$(DEFINES) -I. -I\$(srcdir) \
+\$(filter %.cpp %.o, $+) -o \$@\$(EXEEXT)
+EXECUTABLES += $1\$(EXEEXT)
+clean: clean/$1
+clean/$1:
+	\$(QUIET)\$(RM) \$($1_SOURCES) $1
+	\$(RMDIR) \$($1_DIRS) \n" >> $builddir/Makefile.modules
+}
+
+add_in_group() {
+	echo "$2: $1" >> $builddir/Makefile.modules
+}
+
+. $srcdir/root.mg

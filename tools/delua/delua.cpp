@@ -23,11 +23,6 @@
  *
  */
 
-#include <tools/lua/lua.h>
-#include <tools/lua/lundump.h>
-#include <tools/lua/lopcodes.h>
-#include <tools/lua/lzio.h>
-
 #include <stdio.h>
 #include <stdlib.h>
 #include <stdarg.h>
@@ -39,6 +34,11 @@
 #include <stack>
 #include <list>
 #include <set>
+
+#include "lua/lua.h"
+#include "lua/lundump.h"
+#include "lua/lopcodes.h"
+#include "lua/lzio.h"
 
 // Provide debug.cpp functions which don't call SDL_Quit.
 void warning(const char *fmt, ...) {
@@ -1237,7 +1237,7 @@ void Decompiler::decompileRange(Byte *start, Byte *end) {
     }
   }
 }
-  
+
 // Decompile the body of a function.
 void decompile(std::ostream &os, TProtoFunc *tf, std::string indent_str,
 	       Expression **upvals, int num_upvals) {

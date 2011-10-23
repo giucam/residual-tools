@@ -10,17 +10,14 @@
 #
 install: all
 	$(INSTALL) -d "$(DESTDIR)$(BINDIR)"
-	$(INSTALL) -c -s -m 755 "./$(EXECUTABLE)" "$(DESTDIR)$(BINDIR)/$(EXECUTABLE)"
-	$(INSTALL) -d "$(DESTDIR)$(PREFIX)/share/doc/residual-tools/"
-	$(INSTALL) -c -m 644 $(DIST_FILES_DOCS) "$(DESTDIR)$(PREFIX)/share/doc/residual-tools/"
-	$(INSTALL) -d "$(DESTDIR)$(DATADIR)/residual-tools/"
-	$(INSTALL) -c -m 644 $(DIST_FILES_THEMES) "$(DESTDIR)$(DATADIR)/residual-tools/"
-	#$(INSTALL) -c -m 644 $(DIST_FILES_ENGINEDATA) "$(DESTDIR)$(DATADIR)/residual-tools/"
+	$(INSTALL) -c -s -m 755 $(EXECUTABLES) "$(DESTDIR)$(BINDIR)/"
+	#$(INSTALL) -d "$(DESTDIR)$(PREFIX)/share/doc/residual-tools/"
+	#$(INSTALL) -c -m 644 $(DIST_FILES_DOCS) "$(DESTDIR)$(PREFIX)/share/doc/residual-tools/"
 
+PATHS := $(addprefix $(DESTDIR)$(BINDIR)/, $(EXECUTABLES))
 uninstall:
-	rm -f "$(DESTDIR)$(BINDIR)/$(EXECUTABLE)"
-	rm -rf "$(DESTDIR)$(PREFIX)/share/doc/residual-tools/"
-	rm -rf "$(DESTDIR)$(DATADIR)/residual-tools/"
+	rm -f $(PATHS)
+	#rm -rf "$(DESTDIR)$(PREFIX)/share/doc/residual-tools/"
 
 
 #

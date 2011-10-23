@@ -12,16 +12,6 @@ all: build
 
 
 ######################################################################
-# Module settings
-######################################################################
-
-MODULES := tools/lua tools $(MODULES)
-
-# After the game specific modules follow the shared modules
-MODULES += 
-#	common
-
-######################################################################
 # The build rules follow - normally you should have no need to
 # touch whatever comes after here.
 ######################################################################
@@ -30,7 +20,7 @@ MODULES +=
 CPPFLAGS := $(DEFINES) $(INCLUDES)
 
 # Include the build instructions for all modules
--include $(addprefix $(srcdir)/, $(addsuffix /module.mk,$(MODULES)))
+include Makefile.modules
 
 # Depdir information
 DEPDIRS = $(addsuffix $(DEPDIR),$(MODULE_DIRS))
@@ -52,14 +42,13 @@ endif
 endif
 endif
 
-build: dirs $(OBJS) $(MODULES)
+build: $(OBJS)
 
 distclean: clean
 	$(RM) config.h config.mk config.log
 
 clean:
 	$(RM_REC) $(DEPDIRS)
-	$(RM) $(OBJS) $(EXECUTABLE)
 
 
 #

@@ -55,6 +55,7 @@ INSTALL ?= install
 MKDIR   ?= mkdir -p
 RM      ?= rm -f
 RM_REC  ?= $(RM) -r
+RMDIR	?= rmdir -p --ignore-fail-on-non-empty
 ZIP     ?= zip -q
 
 #######################################################################
